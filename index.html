@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite para Sair</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            /* Branco suave */
+            color: #333;
+            /* Preto */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff6f91;
+            /* Rosa claro */
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            background-color: #ff6f91;
+            /* Rosa claro */
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e03e6b;
+            /* Rosa mais escuro */
+        }
+
+        #localContainer,
+        #confirmContainer {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            /* Fundo branco */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Sombra leve */
+        }
+
+        select,
+        input {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <audio controls autoplay loop>
+        <source src="My Love Mine All Mine.mp3" type="audio/mp3"> Audio não disponivel
+    </audio> -->
+
+    <audio autoplay loop>
+        <source src="My Love Mine All Mine.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+
+    <h1>Você quer sair comigo?</h1>
+    <button id="yesButton">Sim</button>
+    <button id="noButton">Não</button>
+
+    <div id="localContainer">
+        <h2>Escolha um local:</h2>
+        <select id="localSelect">
+            <option value="parque">Comprinhas</option>
+            <option value="cinema">Cinema</option>
+            <option value="cinema">Kart</option>
+            <option value="restaurante">Restaurante</option>
+        </select>
+        <h2>Escolha uma data:</h2>
+        <input type="date" id="dateInput">
+        <button id="confirmButton">Confirmar</button>
+    </div>
+
+    <div id="confirmContainer"></div>
+
+    <script>
+        document.getElementById('yesButton').onclick = function () {
+            document.getElementById('localContainer').style.display = 'block';
+            document.getElementById('yesButton').style.display = 'none'; // Oculta o botão "Sim"
+            document.getElementById('noButton').style.display = 'none'; // Oculta o botão "Não"
+        };
+
+        document.getElementById('noButton').onclick = function () {
+            document.getElementById('yesButton').style.display = 'none'; // Oculta o botão "Sim"
+            document.getElementById('noButton').style.display = 'none'; // Oculta o botão "Não"
+        };
+
+
+
+        document.getElementById('confirmButton').onclick = function () {
+            const local = document.getElementById('localSelect').value;
+            const date = document.getElementById('dateInput').value;
+
+            if (!date) {
+                alert('Por favor, escolha uma data.');
+                return;
+            }
+
+            document.getElementById('confirmContainer').innerHTML = window.location.href = 'index2.html';
+
+            document.getElementById('confirmContainer').innerHTML = `
+        Você escolheu: <strong>${local}</strong> para a data <strong>${date}</strong>.`;
+
+            // Link para WhatsApp
+            const message = `Vamos ao ${local} na data ${date}?`;
+            const whatsappMessage = encodeURIComponent(message);
+            const whatsappLink = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+            document.getElementById('confirmContainer').innerHTML += `<br><a href="${whatsappLink}" target="_blank" style="color: #ff6f91; text-decoration: underline;">Clique aqui para confirmar no WhatsApp</a>`;
+        };
+    </script>
+
+</body>
+
+</html>
